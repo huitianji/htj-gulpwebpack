@@ -1,0 +1,12 @@
+body{
+    width:1200px;
+    min-height: 500px;
+    margin:0px auto;
+    background-color: #f5f5f5;
+    border:1px solid #fefefe;
+    color:#666;
+
+}
+.idiv{
+    background: url("../../app/images/tab.png") no-repeat left top;
+}
