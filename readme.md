@@ -19,6 +19,12 @@ git push -u origin master
         npm install css-loader style-loader --save-dev
     <5>
         npm install url-loader --save-dev
+    <7>
+        npm install expose-loader --save-dev
+    <8>
+        npm install babel-core --save-dev
+        npm install babel-loader --save-dev
+        npm install babel-preset-es2015  --save-dev
 
 【第一：开始工作--初次尝试】
 
@@ -65,3 +71,18 @@ git push -u origin master
     把$作为别名为jquery的变量暴露在全局上下文中
 
     require('expose?$!jquery');
+
+【第八：es6】
+    {
+        test:/\.js?$/,
+        loader:"babel-loader",
+        exclude:/node_modules/,
+        query:{
+            compact:false,
+            presets:['es2015']
+        }
+    }
+【第九：公共模块】
+    plugins:[
+        new webpack.optimize.CommonsChunkPlugin("common.js")
+    ]
