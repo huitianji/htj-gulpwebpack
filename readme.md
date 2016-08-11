@@ -25,6 +25,9 @@ git push -u origin master
         npm install babel-core --save-dev
         npm install babel-loader --save-dev
         npm install babel-preset-es2015  --save-dev
+    <10>
+        npm install gulp --save-dev
+
 
 【第一：开始工作--初次尝试】
 
@@ -86,3 +89,24 @@ git push -u origin master
     plugins:[
         new webpack.optimize.CommonsChunkPlugin("common.js")
     ]
+
+【第10：gulp】
+    var gulp = require("gulp");
+    var webpack = require("webpack");
+    var webpackConfig = require("./webpack.config.js");
+    gulp.task('webpack',function(callback){
+        var myConfig = Object.create(webpackConfig);
+        webpack(
+            myConfig,
+            function(err,stats){
+                callback();
+            }
+
+        );
+    });
+    gulp.task("default",function(){
+        gulp("watch",['webpack']);
+    });
+
+【webpack-dev-server】
+    npm install webpack-dev-server -g
