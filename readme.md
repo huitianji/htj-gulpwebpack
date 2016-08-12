@@ -104,8 +104,8 @@ git push -u origin master
 
         );
     });
-    gulp.task("default",function(){
-        gulp("watch",['webpack']);
+    gulp.task('default',function(){
+        gulp.watch('./**',['webpack']);
     });
 
 【webpack-dev-server】

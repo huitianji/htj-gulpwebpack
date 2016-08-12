@@ -8,5 +8,6 @@ body{
 
 }
 .idiv{
+    color:yellow;
     background: url("../../app/images/tab.png") no-repeat left top;
 }
