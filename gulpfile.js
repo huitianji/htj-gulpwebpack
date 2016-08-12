@@ -30,8 +30,8 @@ gulp.task('webpack',function(callback){
     )
 });
 gulp.task('default',function(){
-    gulp.watch(['./**','!./node_modules'],['webpack'],function(){
-        console.log("ok");
+    gulp.watch(['./**','!./node_modules/**'],['webpack'],function(){
+        console.log("ok--");
     });
 
 });
