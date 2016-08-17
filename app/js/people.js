@@ -1,4 +1,4 @@
 "use strict"
 
 let print = name => name;
-document.write(print("---es6----"));
+document.write(print("---es6---xx-"));
