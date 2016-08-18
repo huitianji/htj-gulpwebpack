@@ -189,19 +189,97 @@ git push -u origin master
     gulp.src(['js/*.js','css/*.css','*.html'])
     -----
 
-【gulp-第四：】
+【gulp-第四：watch=监听】
 
     d:\jihuitian\htj-gulpwebpack\app\js\src.js changed
     d:\jihuitian\htj-gulpwebpack\app\js\src.js deleted
     d:\jihuitian\htj-gulpwebpack\app\js\src.js added
 
+    {
+        gulp.watch('../app/**',function(event){
+                console.log(event.path,event.type);//d:\jihuitian\htj-gulpwebpack\app\src.js added
+                //console.log(path.resolve('app'));//d:\jihuitian\htj-gulpwebpack\gulp-cs\app
+                //console.log(path.resolve('app').length);
+                //added
+                //changed
+                //deleted
+
+                switch (event.type){
+                    case 'added':
+                        //fs.createReadStream(event.path).pipe(
+                        //    fs.createWriteStream(
+                        //        path.join('../dist-q',
+                        //            event.path.slice(path.resolve('../app').length)
+                        //        )
+                        //    )
+                        //);
+                        fs.readFile(event.path,function(err,data){
+                            //console.log(err,data)
+                            fs.writeFile(
+                                path.join(
+                                    '../dist-q',
+                                    event.path.slice(path.resolve('../app').length)
+                                )
+                            )
+                        })
+                        break;
+                    case 'changed':
+                        fs.createReadStream(event.path).pipe(
+                            fs.createWriteStream(path.join(
+                                '../dist-q',
+                                event.path.slice(path.resolve('../app').length)
+                            ))
+                        );
+                        break;
+                    case 'deleted':
+                        fs.unlink(
+                            path.join(
+                                '../dist-q',
+                                event.path.slice(path.resolve('../app').length)
+                            )
+                        );
+                        break;
+                    default:
+                        break;
+                }
+
+            })
+    }
+
+
+-----------------------【gulp插件----glup-plugins】-------------------------------------------------------------------------------
+
+
+
+插件介绍：
+    -。- 编译sass:gulp-sass
+    -。-编译less:gulp-less
+    -。-合并文件 ：gulp-concat
+    -。-压缩js文件：gulp-uglify
+    -。-重命名js文件：gulp-rename
+    -。-优化图像大小：gulp-imagemin
+    -。-压缩css 文件：gulp-minify-css
+    -。-创建本地服务器：gulp-connect
+    -。-实时预览：gulp-connect
+
+    -。-合成雪碧图：gulp-sprite
+
+    --。 html文件压缩:gulp-minify-html     用法：minifyHtml()
+
+    --。 代码检查  gulp-jshint
+
+
+【安装--gulp-plugins】
 
 
 
 
 
 
-
+【gulp-plungins-第一：】
+    var gulp = require("gulp");
+    //加载gulp-load-plugins插件，并马上运行它
+    var $ = require('gulp-load-plugins')();
 
 
 
