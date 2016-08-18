@@ -271,8 +271,11 @@ git push -u origin master
 
 【安装--gulp-plugins】
 
+    //gulp-load-plugins这个插件能自动帮你加载package.json文件里面的gulp插件。
+    npm install gulp-load-plugins --save-dev
 
-
+    //合并文件
+    npm install gulp-concat --save-dev
 
 
 
@@ -281,6 +284,7 @@ git push -u origin master
     //加载gulp-load-plugins插件，并马上运行它
     var $ = require('gulp-load-plugins')();
 
+【gulp-plugins-第二：】
 
 
 
