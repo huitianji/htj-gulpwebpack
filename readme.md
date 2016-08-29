@@ -271,28 +271,94 @@ git push -u origin master
 
 【安装--gulp-plugins】
 
-    //gulp-load-plugins这个插件能自动帮你加载package.json文件里面的gulp插件。
-    npm install gulp-load-plugins --save-dev
+ 【1】    //gulp-load-plugins这个插件能自动帮你加载package.json文件里面的gulp插件。
+   npm install gulp-load-plugins --save-dev
 
-    //合并文件
+【2】    //合并文件
     npm install gulp-concat --save-dev
 
+【3】    //安装less
+    npm install gulp-less --save-dev
+
+【4】   //安装本地服务器
+    npm install gulp-connect --save-dev
+
+【5】  //压缩js
+   npm install gulp-uglify --save-dev
+
+【6】 //重命名
+    npm install gulp-rename --save-dev
+
+【7】 //重命名
+    npm install gulp-minify-css --save-dev
 
 
-【gulp-plungins-第一：】
+【gulp-plugins-第一：】
     var gulp = require("gulp");
     //加载gulp-load-plugins插件，并马上运行它
     var $ = require('gulp-load-plugins')();
 
-【gulp-plugins-第二：】
+【gulp-plugins-第二：《文件合并》】
+
+    gulp.task('default',function(){
+        gulp.src('../app/csjs/*.js',{base:"../app"})
+            .pipe($.concat('all.js'))
+            .pipe(
+                gulp.dest('../dist-q')
+            );
+    });
+【gulp-plugins-第三：编译less】
+
+    gulp.task('default',function(){
+        gulp.src('../app/ceshi/less/*.less')
+            .pipe($.less())
+            .pipe(
+                gulp.dest('../dist-q/css')
+            );
+    });
+
+【gulp-plugins-第四：运行本地服务器（gulp-connect）】
+    gulp.task('server',function(){
+        $.connect.server({
+            root:'../dist-q',//服务器的根目录
+            port:8080 //服务器的地址，没有此配置项默认也是8080
+        });
+    });
+    gulp.task('default',['server']);//
 
 
+   目录下会有一个index.html叫索引页。也叫目录页。。会自动加载index.html
+
+【gulp-plugins-第五：文件变动时实时刷新浏览器】
+    //**----
+    gulp.task('copy-html',function(){
+        gulp.src('app/index.html')//指定源文件
+            .pipe(gulp.dest('dist'))//拷贝到dist目录
+            .pipe(connect.reload());//通知浏览器重启
+    });
+
+    gulp.task('watch',function(){
+        gulp.watch('app/index.html',['copy-html']);
+    });
+
+    gulp.task('server',function(){
+        connect.server({
+            root:'dist',//服务器的根目录
+            port:8080,//服务器的地址，没有此设置项默认也是8080
+            livereload:true//启用实时刷新的功能
+        });
+    });
+
+【gulp-plugins-第六：压缩js】
 
 
+    gulp.task('uglify',function(){
+        return gulp.src(['app/js/*.js','!app/js/*.tmp.js'])
+                    .pipe(concat('app.js'))//把多个js文件进行压缩
+                    .pipe(ugligy())//对合并后的app.js文件进行压缩
+                    .pipe(gulp.dest('dist/js'))//输出目的地
+    });
+    gulp.task('default',['uglify']);
 
-
-
-
-
-
+【gulp-plugins-第七：重命名】
 
